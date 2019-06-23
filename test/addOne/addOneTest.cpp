@@ -1,5 +1,5 @@
 #include "addOne/addOne.h"
-#include "doctest.h"
+#include "doctest/doctest.h"
 
 TEST_CASE("test addOne")
 {

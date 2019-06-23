@@ -11,7 +11,11 @@
                 "--build",
                 "build"
             ],
-            "problemMatcher": []
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "configure",
@@ -20,7 +24,7 @@
             "args": [
                 "-GNinja",
                 "-Bbuild",
-                ".",
+                "."
             ],
             "problemMatcher": []
         },
@@ -41,6 +45,15 @@
                     "/Q",
                     "build"
                 ]
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "run all tests",
+            "type": "shell",
+            "command": "ctest",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
             },
             "problemMatcher": []
         }

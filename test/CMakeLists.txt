@@ -1,5 +1,3 @@
-# include(Catch)
-
 add_executable(${PROJECT_NAME}Test
     doctest_main.cpp
     addOne/addOneTest.cpp
@@ -17,4 +15,4 @@ target_link_libraries(${PROJECT_NAME}Test
 )
 
 
-# doctest_discover_tests(${PROJECT_NAME}Test)
+doctest_discover_tests(${PROJECT_NAME}Test)

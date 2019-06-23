@@ -11,20 +11,19 @@ if(EXISTS ${CMAKE_BINARY_DIR}/conan_paths.cmake)
     include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 endif()
 
-# Search if doctest is installed or added via Conan, else will add from external folder
-# add via submodule
-find_package(doctest CONFIG)
-if(NOT TARGET doctest)
-    add_subdirectory(external/doctest)
+add_subdirectory(src)
+
+if(BUILD_TESTING)
+    # Search if doctest is installed or added via Conan, else will add from external folder
+    # add via submodule
+    find_package(doctest CONFIG)
+    if(NOT TARGET doctest)
+        add_subdirectory(external/doctest)
+        include(external/doctest/scripts/cmake/doctest.cmake)
+    endif()
+    add_subdirectory(test)
 endif()
 
-# add_subdirectory(src)
-add_subdirectory(external)
-
-# if(BUILD_TESTING)
-#     add_subdirectory(test)
-# endif()
-
-# if(BUILD_TOOLS)
-#     add_subdirectory(tools)
-# endif()
+if(BUILD_TOOLS)
+    add_subdirectory(tools)
+endif()

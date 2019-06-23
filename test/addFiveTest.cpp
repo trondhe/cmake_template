@@ -1,5 +1,5 @@
 #include "cmake_template/addFive.h"
-#include "doctest.h"
+#include "doctest/doctest.h"
 
 TEST_CASE("test addFive")
 {
