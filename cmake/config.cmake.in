@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+# include(CMakeFindDependencyMacro)
+# find_dependency(<AnyRequiredDependency>)
+
+
+set_and_check(FOO_INCLUDE_DIR "@PACKAGE_INCLUDE_INSTALL_DIR@")
+set_and_check(FOO_SYSCONFIG_DIR "@PACKAGE_SYSCONFIG_INSTALL_DIR@")
