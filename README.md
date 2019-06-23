@@ -30,6 +30,10 @@ The test folder contains unit tests for the library. It links against the librar
 
 ## Compile and Test
 
+The project uses doctest for unit tests. 
+If using conan the `find_package(doctest)` should work automatically (not tested as of now).  
+If not its source can be gotten by running `git submodule update --init` or be manually downloaded copied into `external/doctest` folder.
+
 All following commands are set up as vscode tasks
 `ctrl+shift+p -> Tasks:Run Task`  
 Recommended to bind action this to a hotkey.
