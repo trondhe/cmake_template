@@ -20,8 +20,5 @@ class ConanRecipe(ConanFile):
 
     def package(self):
         cmake = CMake(self)
-        cmake.install()
-
-    def test(self):
-        cmake = CMake(self)
         cmake.test()
+        cmake.install()
