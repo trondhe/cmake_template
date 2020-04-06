@@ -4,7 +4,7 @@ from conans import ConanFile, CMake, tools
 class ConanRecipe(ConanFile):
     name = "cmake_template"
     version = "0.0.1"
-    build_requires = "doctest/2.3.7"
+    build_requires = "doctest/2.3.8"
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake_paths"
     scm = {
