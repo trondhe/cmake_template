@@ -11,7 +11,7 @@ set_property(TARGET ${PROJECT_NAME}Test PROPERTY ${PROJECT_NAME}_PRIVATE 1)
 target_link_libraries(${PROJECT_NAME}Test
     PUBLIC
         ${PROJECT_NAME}
-        doctest
+        doctest::doctest
 )
 
 
