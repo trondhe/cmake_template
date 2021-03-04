@@ -13,18 +13,22 @@ endif()
 add_subdirectory(src)
 
 if(BUILD_TESTING)
-    find_package(doctest)
+    find_package(doctest QUIET)
     if(TARGET doctest::doctest)
-        # Doctest found via found package
+        # Doctest found via find_package
         # Include doctest.cmake for discover tests, found in CMAKE_MODULE_PATH 
         include(doctest)
     else(NOT TARGET doctest::doctest)
         # else include via subfolder external/doctest, run "git submodule update --init"
-        if(NOT EXIST external/doctest/CMakeLists.txt)
-            message(FATAL_ERROR "Doctest was neither found installed or exists in external folder.")
+        if(EXISTS external/doctest/CMakeLists.txt)
+            add_subdirectory(external/doctest)
+            include(external/doctest/scripts/cmake/doctest.cmake)
+        else()
+            message(FATAL_ERROR
+            " Doctest was neither found via find_package or in the external folder.\n "
+            "Either make sure you have run 'conan install . -if <buildFolder>' and 'conan build . -bf <buildFolder>'\n"
+            " or add doctest to the external folder either via git clone or 'git submodule update --init' ")
         endif()
-        add_subdirectory(external/doctest)
-        include(external/doctest/scripts/cmake/doctest.cmake)
     endif()
     add_subdirectory(test)
 endif()

@@ -26,26 +26,32 @@ See how `addFive.cpp` includes the headers from `addOne` and `addTwo` features. 
 The tools folder compiles a simple main function that links against the library in the src folder and executes the function in the public header.
 
 **test**  
-The test folder contains unit tests for the library. It links against the library, but also gets access to the project's internal headers, explained why here: https://gitlab.kitware.com/cmake/cmake/issues/19048
+The test folder contains unit tests for the library. It links against the library, but also gets access to the project's internal headers, explained why here: <https://gitlab.kitware.com/cmake/cmake/issues/19048>
 
 ## Compile and Test
 
-The project uses doctest for unit tests. 
-If using conan the `find_package(doctest)` should work automatically (not tested as of now).  
-If not its source can be gotten by running `git submodule update --init` or be manually downloaded copied into `external/doctest` folder.
+This project has a single dependency on doctest for unit tests.
+
+### With conan package manager
+
+If using conan, `find_package(doctest)` should work automatically.
+
+Install the dependency with `conan install . -if build`.
+
+Build the project with `conan build . -bf build`.
+
+### Without package manager
+
+#### Setup dependencies
+
+The source for the dependency of doctest can be gotten by running `git submodule update --init` or be manually cloned into `external/doctest` folder.
+
+#### Configure and build
 
 All following commands are set up as vscode tasks
 `ctrl+shift+p -> Tasks:Run Task`  
 Recommended to bind action this to a hotkey.
 
-### Configure
+To configure the project `cmake -GNinja -Bbuild .` and to build `cmake --build build`.
 
-`cmake -GNinja -Bbuild .`
-
-### Build
-
-`cmake --build build`
-
-### Test
-
-`cd build && ctest`
+Running tests via ctest can be done with `cd build && ctest`
