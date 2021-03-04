@@ -10,3 +10,13 @@ int addFive(int value)
     int plusFive = addTwo(plusThree);
     return plusFive;
 }
+
+#ifdef BUILD_UNIT_TESTS
+#include "doctest/doctest.h"
+
+TEST_CASE("test addFive")
+{
+    CHECK(addFive(5) == 10);
+}
+
+#endif

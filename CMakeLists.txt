@@ -33,6 +33,6 @@ if(BUILD_TESTING)
     add_subdirectory(test)
 endif()
 
-if(BUILD_TOOLS)
+if(BUILD_TOOLS AND NOT BUILD_TESTING)
     add_subdirectory(tools)
 endif()

@@ -1,4 +1,12 @@
-add_library(${PROJECT_NAME} STATIC)
+if(BUILD_TESTING)
+    # Required for self registrering unit tests for a library target.
+    set(PROJECT_TYPE OBJECT) 
+else()
+    # Without unit tests, build the target as a normal static library.*
+    set(PROJECT_TYPE STATIC)
+endif()
+
+add_library(${PROJECT_NAME} ${PROJECT_TYPE})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME}
@@ -12,14 +20,9 @@ target_include_directories(${PROJECT_NAME}
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
 )
 
-# Using generator expression to give access to internal headers instead of using PRIVATE/PUBLIC
-# include directories function. This is to allow unit tests in the test folder to access this
-# library's internal headers while also hiding them for other targets when being in a larger
-# build tree of multiple libraries linked together.
-# Full motivation: https://gitlab.kitware.com/cmake/cmake/issues/19048
 target_include_directories(${PROJECT_NAME}
-    PUBLIC
-        "$<BUILD_INTERFACE:$<$<BOOL:$<TARGET_PROPERTY:${PROJECT_NAME}_PRIVATE>>:${CMAKE_CURRENT_SOURCE_DIR}>>"
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
 )
 set_property(TARGET ${PROJECT_NAME} PROPERTY ${PROJECT_NAME}_PRIVATE 1)
 
