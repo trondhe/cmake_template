@@ -55,3 +55,13 @@ Recommended to bind action this to a hotkey.
 To configure the project `cmake -GNinja -Bbuild .` and to build `cmake --build build`.
 
 Running tests via ctest can be done with `cd build && ctest`
+
+## Notes
+
+### Unit testing
+
+When having multiple targets in a single build tree, how do you unit test internal classes of a target without making its headers public to other targets?  
+This is an issue that occurs when having the unit test files as a standalone executable that you link the target into. You have no reasonable way to access the headers without relative paths upwards
+or other types of solutions which create coupledness and becomes harder and harder to maintain.
+The original solution used a hack proposed by maintainers of cmake from this issue <https://gitlab.kitware.com/cmake/cmake/issues/19048> which is a reasonable workaround.  
+This solution has now been replaced by keeping the unit tests inline in the same compilation unit. This removes the issue with private headers polluting the public includes while also not relying on mostly any hacks. The only requirement is that the library has to be build as an `OBJECT` target instead of `STATIC`.
